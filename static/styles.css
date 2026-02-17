@@ -1,0 +1,60 @@
+/* ==== Hero tienda ==== */
+.hero-store {
+  background: linear-gradient(135deg, #0b1224 0%, #121a32 60%, #0f172a 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.hero-actions { margin-top: 12px; display: flex; gap: 10px; }
+
+/* ==== Guía ==== */
+.guide { margin: 18px 0; }
+.guide h3 { margin: 0 0 8px; }
+.guide-steps { margin: 0; padding-left: 18px; }
+
+/* ==== Filtros chips ==== */
+.filters { margin: 8px 0 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  display: inline-block; padding: 6px 10px; border-radius: 999px;
+  background: var(--card); color: var(--muted); border: 1px solid var(--border);
+  text-decoration: none; font-size: 0.95rem;
+}
+.chip:hover { color: #0b1525; background: var(--accent); border-color: transparent; }
+
+/* ==== Grid de productos ==== */
+.grid-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.product {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.product-thumb {
+  width: 56px; height: 56px; display: grid; place-items: center;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  border-radius: 10px; font-size: 26px; margin-bottom: 8px;
+}
+.product-name { margin: 6px 0 4px; font-weight: 600; }
+.product-price { margin: 0; color: var(--accent); font-weight: 700; }
+
+/* ==== Botones ==== */
+.btn {
+  display: inline-block; padding: 8px 12px; border-radius: 8px;
+  text-decoration: none; font-weight: 600; color: var(--text);
+  border: 1px solid var(--border); background: transparent;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-primary {
+  background: var(--accent); color: #0b1525; border-color: transparent;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-secondary { opacity: 0.7; cursor: not-allowed; }
+
+/* Nota */
+.note { margin-top: 6px; }

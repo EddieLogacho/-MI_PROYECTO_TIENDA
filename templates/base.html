@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ titulo or "Mi App Flask" }}</title>
+
+  <!-- Cargar estilos desde /static -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Mi App Flask · Tienda Tecno</h1>
+    <nav class="nav">
+      <a href="{{ url_for('home') }}">Inicio</a>
+      <a href="{{ url_for('about') }}">Acerca de</a>
+      {# A futuro, cuando el profe pida más rutas, aquí agregas más enlaces #}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <small>&copy; 2026 · Mi App Flask | Desarrollado por Edison</small>
+  </footer>
+</body>
+</html>

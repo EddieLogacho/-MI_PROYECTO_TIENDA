@@ -1,23 +1,21 @@
-from flask import Flask
+from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
-# Ruta principal: muestra el nombre del sistema (no "Hola mundo")
 @app.route("/")
-def inicio():
-    return "Bienvenido a Tienda Tech – Catálogo y ofertas"
+def home():
+    return render_template("index.html", titulo="Inicio")
 
-# Ruta dinámica 1: producto por nombre
-# Ejemplo: http://127.0.0.1:5000/producto/Laptop
-@app.route("/producto/<nombre>")
-def producto(nombre):
-    return f"Producto: {nombre} – disponible."
+@app.route("/about")
+def about():
+    return render_template("about.html", titulo="Acerca de")
 
-# Ruta dinámica 2: oferta por código (entero)
-# Ejemplo: http://127.0.0.1:5000/oferta/101
-@app.route("/oferta/<int:codigo>")
-def oferta(codigo):
-    return f"Oferta #{codigo} – consulta exitosa."
+# Health check (útil para Render)
+@app.route("/health")
+def health():
+    return "OK", 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
