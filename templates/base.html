@@ -3,27 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ titulo or "Mi Tienda.. trabajando con Flask y Render" }}</title>
+  <title>{% block title %}Mi App Tienda Tecno{% endblock %}</title>
 
-  <!-- Cargar estilos desde /static -->
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons (opcional) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Favicon (opcional si lo tienes en static/) -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <!-- Tu CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <style> body { padding-top: 4.5rem; } </style>
+  {% block head %}{% endblock %}
 </head>
 <body>
-  <header class="site-header">
-    <h1 class="text-center">Mi App Tienda Tecno - trabajando con Flask y Render</h1>
-    <nav class="nav">
-      <a href="{{ url_for('home') }}">Inicio</a>
-      <a href="{{ url_for('about') }}">Acerca de</a>
-      {# A futuro, cuando el profe pida más rutas, aquí agregas más enlaces #}
-    </nav>
-  </header>
 
-  <main class="container">
-    {% block content %}{% endblock %}
-  </main>
+<!-- NAVBAR SUPERIOR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="{{ url_for('index') }}">
+      <i class="bi bi-shop"></i> Mi Tienda
+    </a>
 
-  <footer class="site-footer">
-    <small>&copy; 2026 · Mi App Flask | Desarrollado por Edison Logacho</small>
-  </footer>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Mostrar menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="{{ url_for('index') }}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'catalogo' %}active{% endif %}" href="{{ url_for('catalogo') }}">Catálogo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'stock' %}active{% endif %}" href="{{ url_for('stock') }}">En stock</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active_page == 'about' %}active{% endif %}" href="{{ url_for('about') }}">Acerca de</a>
+        </li>
+      </ul>
+
+      <!-- Buscador: envía a /catalogo?q=... -->
+      <form class="d-flex" role="search" action="{{ url_for('catalogo') }}" method="get">
+        <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar" name="q" value="{{ request.args.get('q','') }}">
+        <button class="btn btn-outline-light" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-3">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="border-top py-4 mt-5 text-center text-muted small">
+  © {{ 2026 }} MI TEINDA  • Hecho por Edison Logacho con Flask y render
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

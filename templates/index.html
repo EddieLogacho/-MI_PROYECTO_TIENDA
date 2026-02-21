@@ -1,112 +1,40 @@
 {% extends "base.html" %}
+{% block title %}Inicio – Tienda Tecno{% endblock %}
+
 {% block content %}
-  <!-- Hero de tienda -->
-  <section class="hero hero-store">
-    <div>
-      <h2 class="text-center">Universidad Estatal Amazónica Tienda Tecno</h2>
-      <p class="hero-sub">
-        Explora nuestro catálogo de <strong>celulares</strong>, <strong>laptops</strong> y <strong>audífonos</strong>.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
-        <a class="btn" href="{{ url_for('about') }}">Acerca del proyecto</a>
+<section class="p-4 p-md-5 mb-4 bg-gradient-primary rounded-3 text-white">
+  <div class="container-fluid py-3">
+    <h1 class="display-6">UEA MI PROYECTO TIENDA </h1>
+    <p class="col-md-8 fs-6 opacity-75">Explora el catálogo completo o revisa lo disponible en stock.</p>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('catalogo') }}" class="btn btn-light">
+        <i class="bi bi-grid-3x3-gap"></i> Ver catálogo
+      </a>
+      <a href="{{ url_for('stock') }}" class="btn btn-outline-light">
+        <i class="bi bi-check2-circle"></i> En stock
+      </a>
+    </div>
+  </div>
+</section>
+
+<h2 class="h5 mb-3">Novedades</h2>
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3">
+  {% for p in productos_destacados %}
+  <div class="col">
+    <div class="card h-100 product-card">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ p.nombre }}</h5>
+        <p class="card-text text-muted">{{ p.categoria|capitalize }}</p>
+        <p class="fw-semibold">${{ '%.2f'|format(p.precio) }}</p>
+        <span class="badge {% if p.stock>0 %}text-bg-success{% else %}text-bg-secondary{% endif %}">
+          {% if p.stock>0 %}Stock: {{ p.stock }}{% else %}Próximamente{% endif %}
+        </span>
+        <div class="mt-auto">
+          <a href="#" class="btn btn-sm btn-primary mt-2">Agregar</a>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- Pasos/Guía para el usuario -->
-  <section class="guide">
-    <h3>¿Qué deseas hacer?</h3>
-    <ol class="guide-steps">
-      <li>Revisa el <a href="#catalogo">catálogo</a> por categoría.</li>
-      <li>Lee <a href="{{ url_for('about') }}">Acerca de</a> para entender el objetivo.</li>
-      <li>Comprueba el estado en <code>/health</code> (para despliegue en Render).</li>
-    </ol>
-  </section>
-
-  <!-- Catálogo simple (solo front, sin rutas extra) -->
-  <section id="catalogo" class="catalog">
-    <h3>Catálogo</h3>
-
-    <!-- Filtros internos por ancla (no nuevas rutas) -->
-    <div class="filters">
-      <a class="chip" href="#celulares">Celulares</a>
-      <a class="chip" href="#laptops">Laptops</a>
-      <a class="chip" href="#audifonos">Audífonos</a>
-    </div>
-
-    <!-- Celulares -->
-    <h4 id="celulares">Celulares</h4>
-    <div class="grid-products">
-      <article class="product">
-        <div class="product-thumb">📱</div>
-        <h5 class="product-name">iPhone 14</h5>
-        <p class="product-price">$899.99</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">📱</div>
-        <h5 class="product-name">Samsung Galaxy S23</h5>
-        <p class="product-price">$799.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">📱</div>
-        <h5 class="product-name">Xiaomi Redmi Note 13</h5>
-        <p class="product-price">$299.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-    </div>
-
-    <!-- Laptops -->
-    <h4 id="laptops">Laptops</h4>
-    <div class="grid-products">
-      <article class="product">
-        <div class="product-thumb">💻</div>
-        <h5 class="product-name">Lenovo IdeaPad 3</h5>
-        <p class="product-price">$549.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">💻</div>
-        <h5 class="product-name">Acer Aspire 5</h5>
-        <p class="product-price">$629.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">💻</div>
-        <h5 class="product-name">HP Pavilion 15</h5>
-        <p class="product-price">$689.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-    </div>
-
-    <!-- Audífonos -->
-    <h4 id="audifonos">Audífonos</h4>
-    <div class="grid-products">
-      <article class="product">
-        <div class="product-thumb">🎧</div>
-        <h5 class="product-name">Sony WH‑1000XM4</h5>
-        <p class="product-price">$299.99</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">🎧</div>
-        <h5 class="product-name">Apple AirPods (2da gen)</h5>
-        <p class="product-price">$129.00</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-      <article class="product">
-        <div class="product-thumb">🎧</div>
-        <h5 class="product-name">JBL Tune 510BT</h5>
-        <p class="product-price">$49.99</p>
-        <button class="btn btn-secondary" disabled>Próximamente</button>
-      </article>
-    </div>
-
-    <p class="muted note">
-      * Esta es una vista estática (sin base de datos). En próximas semanas conectaremos
-      el catálogo a una BD y activaremos los botones.
-    </p>
-  </section>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
